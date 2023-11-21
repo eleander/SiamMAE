@@ -9,6 +9,8 @@
 # DeiT: https://github.com/facebookresearch/deit
 # --------------------------------------------------------
 
+# timm==0.4.5
+# PyTorch 1.8.1+
 from functools import partial
 
 import torch

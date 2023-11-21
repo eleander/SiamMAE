@@ -12,8 +12,6 @@ import cv2
 
 MAX_EXTRACTS = 242
 MIN_SECONDS_PER_VIDEO = 3
-MIN_FPS = 23.9
-MAX_FPS = 30
 DEFULT_DATASET_DIR = "../dataset"
 TMP_FILE_DOWNLOADED_PARTS = f"{DEFULT_DATASET_DIR}/parts.txt"
 
@@ -102,15 +100,10 @@ def validate_kinetics(dataset_dir=DEFULT_DATASET_DIR):
             
             # Remove videos that are less than MIN_SECONDS_PER_VIDEO seconds
             if duration < MIN_SECONDS_PER_VIDEO:
-                print(f"File {file} is less than {MIN_SECONDS_PER_VIDEO} seconds")
-                # Delete the corrupted file
                 os.remove(dataset_dir + "/class1/" + file)
                 continue
-            
-            # Remove videos that are not in the FPS range
-            if fps < MIN_FPS or fps > MAX_FPS:
-                print(f"File {file} has fps {fps} which is not in range {MIN_FPS} to {MAX_FPS}")
-                # Delete the corrupted file
+
+            if not (fps >= 29 and fps <= 30) or (fps < 23.9 and fps > 29):
                 os.remove(dataset_dir + "/class1/" + file)
                 continue
 
