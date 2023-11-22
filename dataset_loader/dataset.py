@@ -22,7 +22,7 @@ from torchvision.transforms import (
 FRAME_GAP_RANGE = (2, 10)
 FPS = 29
 IMAGE_SIZE = 224
-REPEATED_SAMPLING_FACTOR = 3
+REPEATED_SAMPLING_FACTOR = 1
 CLIP_DURATION = FRAME_GAP_RANGE[1] / FPS + 0.0001
 
 def get_kinetics_dataset(dataset_dir="../dataset/"):
