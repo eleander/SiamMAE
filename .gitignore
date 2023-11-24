@@ -2,3 +2,5 @@ dataset
 *.pyc
 runs
 *.pth
+checkpoints
+losses

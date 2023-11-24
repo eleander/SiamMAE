@@ -19,7 +19,7 @@ from torchvision.transforms import (
     RandomHorizontalFlip
 )
 
-FRAME_GAP_RANGE = (2, 10)
+FRAME_GAP_RANGE = (4, 48)
 FPS = 29
 IMAGE_SIZE = 224
 REPEATED_SAMPLING_FACTOR = 1
