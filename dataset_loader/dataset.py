@@ -22,6 +22,7 @@ from torchvision.transforms import (
 FRAME_GAP_RANGE = (4, 48)
 FPS = 29
 IMAGE_SIZE = 224
+# REPEATED_SAMPLING_FACTOR = 9
 REPEATED_SAMPLING_FACTOR = 1
 CLIP_DURATION = FRAME_GAP_RANGE[1] / FPS + 0.0001
 
@@ -33,8 +34,8 @@ def get_kinetics_dataset(dataset_dir="../dataset/"):
         key="video",
         transform=Compose(
             [
-            # RandomTemporalSubsample(FRAME_GAP_RANGE[0], FRAME_GAP_RANGE[1], repeated_sampling=REPEATED_SAMPLING_FACTOR),
-            LinearTemporalSubsample(FRAME_GAP_RANGE[0], FRAME_GAP_RANGE[1], repeated_sampling=REPEATED_SAMPLING_FACTOR),
+            RandomTemporalSubsample(FRAME_GAP_RANGE[0], FRAME_GAP_RANGE[1], repeated_sampling=REPEATED_SAMPLING_FACTOR),
+            # LinearTemporalSubsample(FRAME_GAP_RANGE[0], FRAME_GAP_RANGE[1], repeated_sampling=REPEATED_SAMPLING_FACTOR),
             RandomResizedCrop(IMAGE_SIZE, IMAGE_SIZE, scale=(0.2, 1.0), aspect_ratio=(1.0, 1.0), interpolation='bilinear'),
             Div255(),
             # mean and std from ImageNet

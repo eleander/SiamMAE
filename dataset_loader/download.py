@@ -16,7 +16,7 @@ DEFULT_DATASET_DIR = "../dataset"
 TMP_FILE_DOWNLOADED_PARTS = f"{DEFULT_DATASET_DIR}/parts.txt"
 
 # DOWNLOAD THE DATASET FROM THE URL AND EXTRACT IT TO THE SPECIFIED DIRECTORY
-def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, max_extractions=1): 
+def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, max_extractions=10): 
     """
     Downloads and extracts the Kinetics dataset from the internet. 
     The function downloads the dataset in parts and extracts them into the 'class1' directory. 

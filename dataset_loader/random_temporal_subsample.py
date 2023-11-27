@@ -6,9 +6,10 @@ def random_temporal_subsample(video, min_gap, max_gap, temporal_dim=-3, repeated
 
     # Randomly sample a gap size
     gap = torch.randint(min_gap, max_gap, (repeated_sampling,))
+
     # Sort gap sizes
     gap = torch.sort(gap)[0]
-    print(f"gap: {gap}")
+    # print(f"gap: {gap}")
     
     # return tensor with first and (repeated_sampling)x randomly sampled frames
     return torch.index_select(video, temporal_dim, torch.cat((torch.zeros(1, dtype=torch.long), gap)))
