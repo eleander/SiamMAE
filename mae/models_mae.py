@@ -64,6 +64,10 @@ class MaskedAutoencoderViT(nn.Module):
 
         self.initialize_weights()
 
+        # WE ADDED THIS
+        self.decoder_embed_dimensions = embed_dim
+        self.decoder_num_heads = num_heads
+
     def initialize_weights(self):
         # initialization
         # initialize (and freeze) pos_embed by sin-cos embedding

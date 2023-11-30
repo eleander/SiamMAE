@@ -16,7 +16,7 @@ DEFULT_DATASET_DIR = "../dataset"
 TMP_FILE_DOWNLOADED_PARTS = f"{DEFULT_DATASET_DIR}/parts.txt"
 
 # DOWNLOAD THE DATASET FROM THE URL AND EXTRACT IT TO THE SPECIFIED DIRECTORY
-def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, max_extractions=10): 
+def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, min_extractions=1, max_extractions=10):
     """
     Downloads and extracts the Kinetics dataset from the internet. 
     The function downloads the dataset in parts and extracts them into the 'class1' directory. 
@@ -39,7 +39,7 @@ def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, max_extractions=10):
     dataset_dir = dataset_dir + "/class1"
 
     max_extractions = min(max_extractions, MAX_EXTRACTS)
-    for i in tqdm(range(max_extractions)):
+    for i in tqdm(range(min_extractions, max_extractions)):
         # Check if the part is already downloaded
         if str(i) in downloaded_parts:
             continue
@@ -109,9 +109,11 @@ def validate_kinetics(dataset_dir=DEFULT_DATASET_DIR):
 
 if __name__ =="__main__":
     print("Downloading Kinetics Dataset")
-    download_kinetics()
+    download_kinetics(max_extractions=5)
+    download_kinetics(dataset_dir="../dataset/test", min_extractions=50, max_extractions=51)
     
     print("Validating Kinetics Dataset")
     validate_kinetics()
+    validate_kinetics(dataset_dir="../dataset/test")
 
     print("Done!")

@@ -33,8 +33,8 @@ class CrossDecoder(torch.nn.Module):
 class SiamMAE(torch.nn.Module):
     def __init__(self, mae, mask_ratio = 0.75, device=torch.device("cuda")):
         super().__init__()
-        self.mae = mae
-        self.cross_decoder = CrossDecoder(embed_dim=768, num_heads=12).to(device)
+        self.mae = mae 
+        self.cross_decoder = CrossDecoder(embed_dim=mae.decoder_embed_dimensions, num_heads=mae.decoder_num_heads).to(device)
         self.mask_ratio = mask_ratio
 
     def forward(self, x):
@@ -68,5 +68,3 @@ def download_pretrained_model(model_url="https://dl.fbaipublicfiles.com/mae/visu
         r = requests.get(model_url)
         with open(chkpt_dir, 'wb') as f:
             f.write(r.content)
-
-    

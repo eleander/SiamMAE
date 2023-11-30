@@ -76,9 +76,11 @@ def train(model, data_loader, epochs=60, prefix="", num_epochs_per_save=10, devi
         # https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html
             torch.save(model, f"{folder_to_store_checkpoints}/{epoch+1}.pt")
 
-def plot_results_from_checkpoint(checkpoint_name, data_loader, device):
+def plot_results_from_checkpoint(checkpoint_name, data_loader, device, num_samples_to_plot=10):
     checkpoint_path = f"./checkpoints/{checkpoint_name}"
     model = torch.load(checkpoint_path).to(device)
-    sample = next(iter(data_loader))["video"]
-    plot_sample(sample, model, device)
+    model.eval()
+    for _ in range(num_samples_to_plot):
+        sample = next(iter(data_loader))["video"]
+        plot_sample(sample, model, device)
     del model
