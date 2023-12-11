@@ -3,4 +3,4 @@ dataset
 runs
 *.pth
 checkpoints
-losses
+*losses

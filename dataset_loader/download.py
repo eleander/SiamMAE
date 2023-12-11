@@ -57,13 +57,26 @@ def download_kinetics(dataset_dir=DEFULT_DATASET_DIR, min_extractions=1, max_ext
     return
 
 
-# Function to get fps and duration of a video file
 def _get_video_info(file_path):
-    # Use cv2 to find fps and duration of video
+    """
+    Gets the frames per second (fps) and duration of a video file.
+
+    Parameters:
+    file_path (str): The path to the video file.
+
+    Returns:
+    fps (float): The frames per second of the video.
+    duration (float): The duration of the video in seconds.
+    """
+    # Use OpenCV to open the video file
     video = cv2.VideoCapture(file_path)
+    # Get the frames per second of the video
     fps = video.get(cv2.CAP_PROP_FPS)
+    # Get the total number of frames in the video
     frame_count = int(video.get(cv2.CAP_PROP_FRAME_COUNT))
+    # Calculate the duration of the video by dividing the total number of frames by the frames per second
     duration = frame_count/fps
+    # Return the frames per second and duration
     return fps, duration
 
 def validate_kinetics(dataset_dir=DEFULT_DATASET_DIR):
