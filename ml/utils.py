@@ -1,3 +1,4 @@
+import pickle
 import torch
 from datetime import datetime
 from tqdm import tqdm
@@ -76,11 +77,27 @@ def train(model, data_loader, epochs=60, prefix="", num_epochs_per_save=10, devi
         # https://pytorch.org/tutorials/recipes/recipes/saving_and_loading_a_general_checkpoint.html
             torch.save(model, f"{folder_to_store_checkpoints}/{epoch+1}.pt")
 
-def plot_results_from_checkpoint(checkpoint_name, data_loader, device, num_samples_to_plot=10):
+def plot_results_from_checkpoint(checkpoint_name, data_loader, device, samples_path="samples.pickle"):
     checkpoint_path = f"./checkpoints/{checkpoint_name}"
     model = torch.load(checkpoint_path).to(device)
     model.eval()
-    for _ in range(num_samples_to_plot):
-        sample = next(iter(data_loader))["video"]
+
+    losses = []
+    for batch in tqdm(data_loader):
+        batch = batch["video"].to(device)
+        loss = model(batch)[0]
+        losses.append(loss.item())
+    avg_loss = sum(losses)/len(losses)
+    print(f"Avg Loss: {avg_loss}")
+
+    os.makedirs("./test_losses", exist_ok=True)
+    with open(f"./test_losses/{checkpoint_name.split('/')[0]}.txt", "a") as f:
+        f.write(f"Avg Loss: {avg_loss} Losses - {losses} \n")
+
+    with open(samples_path, "rb") as f:
+        samples = pickle.load(f)
+        
+    for sample in samples:
         plot_sample(sample, model, device)
     del model
+
