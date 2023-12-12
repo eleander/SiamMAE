@@ -1,6 +1,7 @@
-dataset
+*dataset
 *.pyc
 runs
 *.pth
 checkpoints
 *losses
+backup
