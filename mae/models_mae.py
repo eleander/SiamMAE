@@ -224,6 +224,15 @@ class MaskedAutoencoderViT(nn.Module):
         pred = self.forward_decoder(latent, ids_restore)  # [N, L, p*p*3]
         loss = self.forward_loss(imgs, pred, mask)
         return loss, pred, mask
+    
+    def encode(self, imgs):
+        x = self.patchify(imgs)
+        
+        for blk in self.blocks:
+            x = blk(x)
+        x = self.norm(x)
+
+        return x
 
 # * IMPORTANT: WE USE THIS! 
 def mae_vit_base_patch16_dec512d8b(**kwargs):
